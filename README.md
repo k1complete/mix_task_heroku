@@ -1,4 +1,3 @@
-mix_task_heroku
-===============
+# MixTaskHeroku
 
-mix script: run dynamo for heroku 
+** TODO: Add description **
