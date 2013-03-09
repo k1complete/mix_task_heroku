@@ -3,7 +3,7 @@ defmodule Mix.Tasks.Heroku do
   @shortdoc "Run all Dynamos in a web server for heroku, see mix heroku -h"
   @moduledoc """
   Runs all registered Dynamos in their servers.
-  mix heroku -p port  # use port 
+  mix heroku -p port  # use port  [default use System.get_env(PORT)]
   mix heroku -h       # this message
   """
   def run(args) do
@@ -13,13 +13,16 @@ defmodule Mix.Tasks.Heroku do
     optspecs = [aliases: [p: :port, h: :help],
       switches: [port: :keep, help: :keep]]
     {opts, _head} = OptionParser.parse_head(args, optspecs)
-    if (opts[:help]) do
+    if (opts[:help] || !dynamos) do
       usage
       System.halt
     end
-    p = case (opts[:port]) do
-      nil -> []
-      m -> [port: binary_to_integer m]
+    p = []
+    p = if (m = System.get_env("PORT")) do
+      [port: binary_to_integer m]
+    end
+    p = if (m = opts[:port]) do
+      [port: binary_to_integer m]
     end
     Enum.each dynamos, fn(dynamo) ->
       validate_dynamo(dynamo)
@@ -30,7 +33,7 @@ defmodule Mix.Tasks.Heroku do
   @spec 
   defp usage() do
     IO.puts "usage: mix heroku [options]\n"
-    {n, docs} = __MODULE__.__info__(:moduledoc)
+    {_n, docs} = __MODULE__.__info__(:moduledoc)
     IO.puts docs
   end
   defp validate_dynamo(dynamo) do
