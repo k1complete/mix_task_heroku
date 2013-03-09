@@ -9,6 +9,10 @@ defmodule Mix.Tasks.Heroku do
   def run(args) do
     Mix.Task.run Mix.project[:prepare_task], args
     dynamos = Mix.project[:dynamos]
+    if (!dynamos) do
+      IO.puts "your project has nothing dynamo."
+      System.halt
+    end
     Dynamo.Loader.enable
     optspecs = [aliases: [p: :port, h: :help],
       switches: [port: :keep, help: :keep]]

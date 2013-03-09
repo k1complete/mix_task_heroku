@@ -18,3 +18,4 @@ usage:
 
 3. write run dynamo under heroku 
   
+  mix heroku
