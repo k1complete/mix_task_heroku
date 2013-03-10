@@ -22,11 +22,11 @@ defmodule Mix.Tasks.Heroku do
       System.halt
     end
     p = []
-    p = if (m = System.get_env("PORT")) do
-      [port: binary_to_integer m]
+    if (m = System.get_env("PORT")) do
+      p = [port: binary_to_integer m]
     end
-    p = if (m = opts[:port]) do
-      [port: binary_to_integer m]
+    if (m = opts[:port]) do
+      p = [port: binary_to_integer m]
     end
     Enum.each dynamos, fn(dynamo) ->
       validate_dynamo(dynamo)
