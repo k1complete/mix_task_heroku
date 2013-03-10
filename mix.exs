@@ -15,6 +15,8 @@ defmodule MixTaskHeroku.Mixfile do
   # Returns the list of dependencies in the format:
   # { :foobar, "0.1", git: "https://github.com/elixir-lang/foobar.git" }
   defp deps do
-    [  { :dynamo, %r(.*), github: "elixir-lang/dynamo" } ]
+    [  { :dynamo, %r(.*), github: "elixir-lang/dynamo" },
+       { :ranch, %r(.*), github: "extend/ranch", ref: "c3133bfbc324fbb9ac26ab689cd41dc362ad7c05" },
+      { :cowboy, %r(.*), github: "extend/cowboy", ref: "a3049f7100bb9f3cbaef1db6bf6cdeb750d9e298" } ]
   end
 end
